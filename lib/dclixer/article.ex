@@ -1,4 +1,6 @@
 defmodule Dclixer.Article do
+  alias Dclixer.{Request, Utils}
+
   @list "http://m.dcinside.com/api/gall_list_new.php"
 
   def list(gallery_id, app_id), do: list(gallery_id, app_id, "1", nil)
@@ -13,7 +15,9 @@ defmodule Dclixer.Article do
       |> append_search(search)
 
     @list
-    |> Dclixer.Request.get_with_hash(query)
+    |> Request.get_with_hash(query)
+    |> Utils.take_first()
+    |> Utils.resolve_key("gall_list")
   end
 
   defp append_search(map, {type, keyword}),
