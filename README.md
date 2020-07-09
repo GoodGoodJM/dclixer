@@ -21,7 +21,7 @@
 |기능|여부|
 |--|--|
 |list|O|
-|get(detail)|X|
+|get(detail)|O|
 
 ## Comment
 

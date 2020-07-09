@@ -2,6 +2,7 @@ defmodule Dclixer.Article do
   alias Dclixer.{Request, Utils}
 
   @list "http://m.dcinside.com/api/gall_list_new.php"
+  @detail "http://m.dcinside.com/api/gall_view.php"
 
   def list(gallery_id, app_id), do: list(gallery_id, app_id, "1", nil)
 
@@ -24,4 +25,16 @@ defmodule Dclixer.Article do
     do: map |> Map.put("s_type", type) |> Map.put("serVal", keyword)
 
   defp append_search(map, nil), do: map
+
+  def detail(gallery_id, app_id, no) do
+    query = %{
+      no: no |> to_string(),
+      id: gallery_id,
+      app_id: app_id
+    }
+
+    @detail
+    |> Request.get_with_hash(query)
+    |> Utils.take_first()
+  end
 end
